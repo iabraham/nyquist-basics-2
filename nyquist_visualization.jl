@@ -137,7 +137,7 @@ The contour $C_3$ is a **clockwise circle** centred at $0.5 + 0i$ with radius $4
 **Prediction:**
 - $\angle(s - z_1)$ net change: $-360°$ (zero inside)
 - $\angle(s - p_1)$ and $\angle(s - p_2)$ net change: $-360°$ each (both poles inside)
-- $\angle H(s)$ net change: $-360° - (-360°) - (-360°) = +360°$ → $H(C_3)$ encircles origin **once counter-clockwise** ($N = Z - P = 1 - 2 = -1$)
+- $\angle H(s)$ net change: $\Delta\angle H = (P-Z)\times 360° = (2-1)\times 360° = +360°$ → one **counter-clockwise** rotation of $H(C_3)$ around the origin ($N = Z - P = 1 - 2 = -1$)
 """
 
 # ╔═╡ 50000000-0000-0000-0000-000000000003
