@@ -17,9 +17,9 @@ $$H(s) = \frac{s - 3}{s^2 + 4s + 8}, \quad z_1 = 3, \quad p_{1,2} = -2 \pm 2i$$
 
 | Case | Contour encloses | Predicted $N=Z-P$ | Expected $H(C)$ behavior |
 |------|-------------------|-------------------|---------------------------|
-| 1 | Zero $z_1$ only | $1-0=1$ | One clockwise encirclement |
-| 2 | Both poles $p_1, p_2$ | $0-2=-2$ | Two counter-clockwise encirclements |
-| 3 | One zero + one pole ($z_1, p_1$) | $1-1=0$ | No net encirclement (cancellation) |
+| 1 | Both poles $p_1, p_2$ | $0-2=-2$ | Two counter-clockwise encirclements |
+| 2 | One zero + one pole ($z_1, p_1$) | $1-1=0$ | No net encirclement (cancellation) |
+| 3 | All singularities ($z_1, p_1, p_2$) | $1-2=-1$ | One counter-clockwise encirclement |
 
 Each case keeps the same Pluto structure as the original notebook:
 - *s*-plane contour with singularities and current traversal point,
