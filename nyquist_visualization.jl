@@ -60,9 +60,9 @@ for one clockwise traversal of $C$.
 
 | Case | Inside $C$ | $N = Z - P$ | $H(C)$ |
 |:---|:---|:---|:---|
-| **Case 1** | Zero $z_1 = 3$ | $1 - 0 = 1$ | Encircles origin **once clockwise** |
-| **Case 2** | Poles $p_1, p_2$ | $0 - 2 = -2$ | Encircles origin **twice counter-clockwise** |
-| **Case 3** | Zero $z_1$ and pole $p_1$ | $1 - 1 = 0$ | **No net** encirclement of origin |
+| **Case 1** | Poles $p_1, p_2$ | $0 - 2 = -2$ | Encircles origin **twice counter-clockwise** |
+| **Case 2** | Zero $z_1$ and pole $p_1$ | $1 - 1 = 0$ | **No net** encirclement of origin |
+| **Case 3** | All singularities $z_1, p_1, p_2$ | $1 - 2 = -1$ | Encircles origin **once counter-clockwise** |
 
 Use the **sliders** to trace $s(t)$ on each contour and compare the predicted net angle change with the observed image contour $H(C)$.
 """
@@ -87,63 +87,185 @@ begin
 	MARGINS = 3mm
 end;
 
-# ╔═╡ 20000000-0000-0000-0000-000000000001
-md"""
----
-## Case 1 — Contour Encircles the Zero ($z_1 = 3$)
-
-The contour $C_1$ is a **horizontal ellipse** centred at $z_1 = 3$, traversed **clockwise**.
-
-**Inside $C_1$:** Zero $z_1 = 3$
-**Outside $C_1$:** Poles $p_1, p_2$
-
-**Prediction:**
-- $\angle(s - z_1)$ net change: $-360°$ (zero is inside)
-- $\angle(s - p_1)$, $\angle(s - p_2)$ net change: $0°$ (poles are outside)
-- $\angle H(s)$ net change: $-360°$ → $H(C_1)$ encircles origin **once clockwise**
-
-Move the slider to trace $s(t)$ around $C_1$ and observe the angle evolution.
-"""
-
-# ╔═╡ 20000000-0000-0000-0000-000000000003
-@bind t₁ PlutoUI.Slider(1:N_pts, default=1, show_value=true)
-
 # ╔═╡ 30000000-0000-0000-0000-000000000001
 md"""
 ---
-## Case 2 — Contour Encircles Both Poles ($p_1, p_2$)
+## Case 1 — Contour Encircles Both Poles ($p_1, p_2$)
 
-The contour $C_2$ is a **clockwise ellipse** centred at $-2 + 0i$ that encloses both poles.
+The contour $C_1$ is a **clockwise ellipse** centred at $-2 + 0i$ that encloses both poles.
 
-**Inside $C_2$:** Poles $p_1 = -2+2i$, $p_2 = -2-2i$
-**Outside $C_2$:** Zero $z_1 = 3$
+**Inside $C_1$:** Poles $p_1 = -2+2i$, $p_2 = -2-2i$
+**Outside $C_1$:** Zero $z_1 = 3$
 
 **Prediction:**
 - $\angle(s - p_1)$ and $\angle(s - p_2)$ net change: $-360°$ each (both poles are inside)
 - $\angle(s - z_1)$ net change: $0°$ (outside)
-- $\angle H(s)$ net change: $+720°$ → $H(C_2)$ encircles origin **twice counter-clockwise**
+- $\angle H(s)$ net change: $+720°$ → $H(C_1)$ encircles origin **twice counter-clockwise**
 """
 
 # ╔═╡ 30000000-0000-0000-0000-000000000003
-@bind t₂ PlutoUI.Slider(1:N_pts, default=1, show_value=true)
+@bind t₁ PlutoUI.Slider(1:N_pts, default=1, show_value=true)
 
 # ╔═╡ 40000000-0000-0000-0000-000000000001
 md"""
 ---
-## Case 3 — Contour Encircles a Pole and a Zero
+## Case 2 — Contour Encircles a Pole and a Zero
 
-The contour $C_3$ is a **clockwise circle** centred at $1 + 1i$.
+The contour $C_2$ is a **clockwise circle** centred at $1 + 1i$.
 
-**Inside $C_3$:** Zero $z_1 = 3$ and pole $p_1 = -2 + 2i$
-**Outside $C_3$:** Pole $p_2 = -2 - 2i$
+**Inside $C_2$:** Zero $z_1 = 3$ and pole $p_1 = -2 + 2i$
+**Outside $C_2$:** Pole $p_2 = -2 - 2i$
 
 **Prediction:**
 - $\angle(s-z_1)$ and $\angle(s-p_1)$ each contribute $-360°$, and these cancel in $\angle H(s)$
-- $\angle H(s)$ net change: $0°$ → $H(C_3)$ shows **no net** encirclement of the origin
+- $\angle H(s)$ net change: $0°$ → $H(C_2)$ shows **no net** encirclement of the origin
 """
 
 # ╔═╡ 40000000-0000-0000-0000-000000000003
+@bind t₂ PlutoUI.Slider(1:N_pts, default=1, show_value=true)
+
+# ╔═╡ 50000000-0000-0000-0000-000000000001
+md"""
+---
+## Case 3 — Contour Encircles All Singularities ($z_1, p_1, p_2$)
+
+The contour $C_3$ is a **clockwise circle** centred at $0.5 + 0i$ with radius $4$, large enough to enclose all singularities.
+
+**Inside $C_3$:** Zero $z_1 = 3$, pole $p_1 = -2+2i$, and pole $p_2 = -2-2i$
+**Outside $C_3$:** nothing
+
+**Prediction:**
+- $\angle(s - z_1)$ net change: $-360°$ (zero inside)
+- $\angle(s - p_1)$ and $\angle(s - p_2)$ net change: $-360°$ each (both poles inside)
+- $\angle H(s)$ net change: $-360° - (-360°) - (-360°) = +360°$ → $H(C_3)$ encircles origin **once counter-clockwise** ($N = Z - P = 1 - 2 = -1$)
+"""
+
+# ╔═╡ 50000000-0000-0000-0000-000000000003
 @bind t₃ PlutoUI.Slider(1:N_pts, default=1, show_value=true)
+
+# ╔═╡ 50000000-0000-0000-0000-000000000002
+begin
+	# Clockwise circle centred at 0.5 + 0i with radius 4, enclosing all singularities
+	C₃ = [(0.5 + 0.0im) +
+		  4.0*cos(t) -
+		  im*4.0*sin(t)
+		  for t in θ_vec]
+	H₃ = H.(C₃)
+
+	φz_C3  = unwrap(angle.(C₃ .- z₁))
+	φp1_C3 = unwrap(angle.(C₃ .- p₁))
+	φp2_C3 = unwrap(angle.(C₃ .- p₂))
+	φH_C3  = unwrap(angle.(H₃))
+end;
+
+# ╔═╡ 50000000-0000-0000-0000-000000000004
+let
+	s  = C₃[t₃]
+	h  = H₃[t₃]
+	idx = 1:t₃
+
+	# ── s-plane  (1,1) ───────────────────────────────────────────────────────
+	sp = plot(real.(C₃), imag.(C₃),
+		lc=:royalblue, lw=2, label="Contour C₃",
+		title="s-plane  (step $t₃ / $N_pts)",
+		xlabel="Re(s)", ylabel="Im(s)",
+		xlims=(-6.0, 7.0), ylims=(-5.5, 5.5),
+		framestyle=:origin, legend=:bottomright)
+
+	plot!(sp, [real(z₁), real(s)], [imag(z₁), imag(s)],
+		lc=:darkgreen, lw=1.5, ls=:dash, label="")
+	plot!(sp, [real(p₁), real(s)], [imag(p₁), imag(s)],
+		lc=:crimson,   lw=1.5, ls=:dash, label="")
+	plot!(sp, [real(p₂), real(s)], [imag(p₂), imag(s)],
+		lc=:purple,    lw=1.5, ls=:dash, label="")
+
+	scatter!(sp, [real(z₁)], [imag(z₁)],
+		ms=10, mc=:darkgreen, marker=:circle, label="Zero z₁=3  ← inside")
+	scatter!(sp, [real(p₁)], [imag(p₁)],
+		ms=10, mc=:crimson,   marker=:xcross, label="Pole p₁=-2+2i  ← inside")
+	scatter!(sp, [real(p₂)], [imag(p₂)],
+		ms=10, mc=:purple,    marker=:xcross, label="Pole p₂=-2−2i  ← inside")
+	scatter!(sp, [real(s)], [imag(s)],
+		ms=10, mc=:darkorange, marker=:star5, label="s(t)")
+
+	# ── H(s)-plane  (1,2) ────────────────────────────────────────────────────
+	hp = plot(real.(H₃), imag.(H₃),
+		lc=:royalblue, lw=2, label="H(C₃)",
+		title="H(s)-plane",
+		xlabel="Re(H(s))", ylabel="Im(H(s))",
+		aspect_ratio=:equal, legend=:bottomright, framestyle=:origin)
+	scatter!(hp, [0.0], [0.0],
+		ms=10, mc=:black, marker=:circle, label="Origin")
+	scatter!(hp, [real(h)], [imag(h)],
+		ms=10, mc=:darkorange, marker=:star5, label="H(s(t))")
+
+	# ── Net angle build-up  (1,3) ─────────────────────────────────────────────
+	Δz_vals  = rad2deg.(φz_C3[idx]  .- φz_C3[1])
+	Δp1_vals = rad2deg.(φp1_C3[idx] .- φp1_C3[1])
+	Δp2_vals = rad2deg.(φp2_C3[idx] .- φp2_C3[1])
+	ΔH_vals  = rad2deg.(φH_C3[idx]  .- φH_C3[1])
+	np = plot(idx, Δz_vals,
+		lc=:darkgreen, lw=2.5, label="Net Δ∠(s − z₁)",
+		title="Net Angle Build-up",
+		xlabel="Step along contour", ylabel="Net Δ Angle (degrees)",
+		xlim=(-1/2,301)
+		)
+	plot!(np, idx, Δp1_vals,
+		lc=:crimson, lw=2.5, ls=:dashdot, label="Net Δ∠(s − p₁)")
+	plot!(np, idx, Δp2_vals,
+		lc=:purple, lw=2.5, ls=:dot, label="Net Δ∠(s − p₂)")
+	plot!(np, idx, ΔH_vals,
+		lc=:royalblue, lw=2.5, ls=:dash, label="Net Δ∠H(s)")
+	hline!(np, [0.0],    lc=:black, lw=1, ls=:dot, label="")
+	hline!(np, [-360.0], lc=:gray,  lw=1, ls=:dot, label="")
+	hline!(np, [360.0],  lc=:gray,  lw=1, ls=:dot, label="")
+
+	if t₃ == N_pts
+		Δz  = round(Δz_vals[end], digits=0)
+		Δp1 = round(Δp1_vals[end], digits=0)
+		Δp2 = round(Δp2_vals[end], digits=0)
+		ΔH  = round(ΔH_vals[end], digits=0)
+		annotate!(np, N_pts*0.45, Δz_vals[end] + 25,
+			text("Net Δ∠(s−z₁) = $(Δz)°", 9, :darkgreen, :left))
+		annotate!(np, N_pts*0.45, Δp1_vals[end] - 25,
+			text("Net Δ∠(s−p₁) = $(Δp1)°", 9, :crimson, :left))
+		annotate!(np, N_pts*0.45, Δp2_vals[end] + 25,
+			text("Net Δ∠(s−p₂) = $(Δp2)°", 9, :purple, :left))
+		annotate!(np, N_pts*0.45, ΔH_vals[end] + 40,
+			text("Net Δ∠H = $(ΔH)°", 9, :royalblue, :left))
+	end
+
+	# ── Unwrapped angle — z₁  (2,1) ──────────────────────────────────────────
+	p_z1 = plot(idx, rad2deg.(φz_C3[idx]),
+		lc=:darkgreen, lw=2, label="∠(s − z₁)",
+		title="∠(s − z₁)  [zero, inside C₃]",
+		xlabel="Step", ylabel="Angle (°)", xlim=(-1/2,301)
+		)
+	hline!(p_z1, [0.0],    lc=:black, lw=1, ls=:dot, label="")
+	hline!(p_z1, [-360.0], lc=:gray,  lw=1, ls=:dot, label="")
+
+	# ── Unwrapped angle — p₁  (2,2) ──────────────────────────────────────────
+	p_p1 = plot(idx, rad2deg.(φp1_C3[idx]),
+		lc=:crimson, lw=2, label="∠(s − p₁)",
+		title="∠(s − p₁)  [pole, inside C₃]",
+		xlabel="Step", ylabel="Angle (°)", xlim=(-1/2,301)
+		)
+	hline!(p_p1, [0.0],    lc=:black, lw=1, ls=:dot, label="")
+	hline!(p_p1, [-360.0], lc=:gray,  lw=1, ls=:dot, label="")
+
+	# ── Unwrapped angle — p₂  (2,3) ──────────────────────────────────────────
+	p_p2 = plot(idx, rad2deg.(φp2_C3[idx]),
+		lc=:purple, lw=2, label="∠(s − p₂)",
+		title="∠(s − p₂)  [pole, inside C₃]",
+		xlabel="Step", ylabel="Angle (°)", xlim=(-1/2,301)
+		)
+	hline!(p_p2, [0.0],    lc=:black, lw=1, ls=:dot, label="")
+	hline!(p_p2, [-360.0], lc=:gray,  lw=1, ls=:dot, label="")
+
+	plot(sp, hp, np, p_z1, p_p1, p_p2,
+		layout = FIG_LAYOUT,
+		size = FIG_SIZE)
+end
 
 # ╔═╡ 10000000-0000-0000-0000-000000000004
 """
@@ -161,21 +283,22 @@ function unwrap(angles::AbstractVector{<:Real})
 	return out
 end
 
-# ╔═╡ 20000000-0000-0000-0000-000000000002
+# ╔═╡ 30000000-0000-0000-0000-000000000002
 begin
-	# Clockwise ellipse around z₁ = 3 (semi-axes 1.5 × 1.0)
-	# Clockwise: real part = cos(θ), imaginary part = −sin(θ)  as θ: 0→2π
-	C₁ = [3.0 + 1.8*cos(t) - im*0.4*sin(t) for t in θ_vec]
+	# Clockwise ellipse centred at -2 + 0i, enclosing both poles and excluding the zero
+	C₁ = [(-2.0 + 0.0im) +
+		  1.5*cos(t) -
+		  im*2.8*sin(t)
+		  for t in θ_vec]
 	H₁ = H.(C₁)
 
-	# Pre-compute unwrapped angles for each factor
-	φz_C1  = unwrap(angle.(C₁ .- z₁))   # ∠(s − z₁)
-	φp1_C1 = unwrap(angle.(C₁ .- p₁))   # ∠(s − p₁)
-	φp2_C1 = unwrap(angle.(C₁ .- p₂))   # ∠(s − p₂)
-	φH_C1  = unwrap(angle.(H₁))          # ∠H(s)
+	φz_C1  = unwrap(angle.(C₁ .- z₁))
+	φp1_C1 = unwrap(angle.(C₁ .- p₁))
+	φp2_C1 = unwrap(angle.(C₁ .- p₂))
+	φH_C1  = unwrap(angle.(H₁))
 end;
 
-# ╔═╡ 20000000-0000-0000-0000-000000000004
+# ╔═╡ 30000000-0000-0000-0000-000000000004
 let
 	s  = C₁[t₁]
 	h  = H₁[t₁]
@@ -185,124 +308,6 @@ let
 	sp = plot(real.(C₁), imag.(C₁),
 		lc=:royalblue, lw=2, label="Contour C₁",
 		title="s-plane  (step $t₁ / $N_pts)",
-		xlabel="Re(s)", ylabel="Im(s)",
-		legend=:bottomright,
-		xlims=(-5.5, 5.5), ylims=(-2.5, 2.5),
-		framestyle = :origin,
-		size=PANEL_SIZE)
-
-	# Lines from each singularity to current point (visualise the angle)
-	plot!(sp, [real(z₁), real(s)], [imag(z₁), imag(s)],
-		lc=:darkgreen, lw=1.5, ls=:dash, label="")
-	plot!(sp, [real(p₁), real(s)], [imag(p₁), imag(s)],
-		lc=:crimson,   lw=1.5, ls=:dash, label="")
-	plot!(sp, [real(p₂), real(s)], [imag(p₂), imag(s)],
-		lc=:purple,    lw=1.5, ls=:dash, label="")
-
-	# Singularities
-	scatter!(sp, [real(z₁)], [imag(z₁)],
-		ms=10, mc=:darkgreen, marker=:circle, label="Zero z₁=3  ← inside")
-	scatter!(sp, [real(p₁)], [imag(p₁)],
-		ms=10, mc=:crimson,   marker=:xcross, label="Pole p₁=-2+2i")
-	scatter!(sp, [real(p₂)], [imag(p₂)],
-		ms=10, mc=:purple,    marker=:xcross, label="Pole p₂=-2−2i")
-	scatter!(sp, [real(s)], [imag(s)],
-		ms=10, mc=:darkorange, marker=:star5, label="s(t)")
-
-	# ── H(s)-plane  (1,2) ────────────────────────────────────────────────────
-	hp = plot(real.(H₁), imag.(H₁),
-		lc=:royalblue, lw=2, label="H(C₁)",
-		title="H(s)-plane",
-		xlabel="Re(H(s))", ylabel="Im(H(s))",
-		aspect_ratio=:equal, legend=:bottomright,
-		framestyle=:origin,
-		size=PANEL_SIZE)
-	scatter!(hp, [0.0], [0.0],
-		ms=10, mc=:black, marker=:circle, label="Origin")
-	scatter!(hp, [real(h)], [imag(h)],
-		ms=10, mc=:darkorange, marker=:star5, label="H(s(t))")
-
-	# ── Net angle build-up  (1,3) ─────────────────────────────────────────────
-	Δz_vals = rad2deg.(φz_C1[idx] .- φz_C1[1])
-	ΔH_vals = rad2deg.(φH_C1[idx] .- φH_C1[1])
-	np = plot(idx, Δz_vals,
-		lc=:darkgreen, lw=2.5, label="Net Δ∠(s − z₁)",
-		title="Net Angle Build-up",
-		xlabel="Step along contour", ylabel="Net Δ Angle (degrees)",
-		xlim=(-1/2,301)
-		)
-	plot!(np, idx, ΔH_vals,
-		lc=:royalblue, lw=2.5, ls=:dash, label="Net Δ∠H(s)")
-	hline!(np, [0.0],    lc=:black, lw=1, ls=:dot, label="")
-	hline!(np, [-360.0], lc=:gray,  lw=1, ls=:dot, label="")
-
-	if t₁ == N_pts
-		Δz = round(Δz_vals[end], digits=0)
-		ΔH = round(ΔH_vals[end], digits=0)
-		annotate!(np, N_pts*0.15, Δz_vals[end] + 30,
-			text("Net Δ∠(s−z₁) = $(Δz)°", 9, :darkgreen, :left))
-		annotate!(np, N_pts*0.15, ΔH_vals[end] + 60,
-			text("Net Δ∠H = $(ΔH)°", 9, :royalblue, :left))
-	end
-
-	# ── Unwrapped angle — z₁  (2,1) ──────────────────────────────────────────
-	p_z1 = plot(idx, rad2deg.(φz_C1[idx]),
-		lc=:darkgreen, lw=2, label="∠(s − z₁)",
-		title="∠(s − z₁)  [zero, inside C₁]",
-		xlabel="Step", ylabel="Angle (°)",
-		xlim=(-1/2,301)
-		)
-	hline!(p_z1, [0.0],    lc=:black, lw=1, ls=:dot, label="")
-	hline!(p_z1, [-360.0], lc=:gray,  lw=1, ls=:dot, label="")
-
-	# ── Unwrapped angle — p₁  (2,2) ──────────────────────────────────────────
-	p_p1 = plot(idx, rad2deg.(φp1_C1[idx]),
-		lc=:crimson, lw=2, label="∠(s − p₁)",
-		title="∠(s − p₁)  [pole, outside C₁]",
-		xlabel="Step", ylabel="Angle (°)",
-		xlim=(-1/2,301), ylim=(-45,0)
-		)
-	hline!(p_p1, [0.0], lc=:black, lw=1, ls=:dot, label="")
-
-	# ── Unwrapped angle — p₂  (2,3) ──────────────────────────────────────────
-	p_p2 = plot(idx, rad2deg.(φp2_C1[idx]),
-		lc=:purple, lw=2, label="∠(s − p₂)",
-		title="∠(s − p₂)  [pole, outside C₁]",
-		xlabel="Step", ylabel="Angle (°)",
-		xlim=(-1/2,301), ylim=(0,45)
-		)
-	hline!(p_p2, [0.0], lc=:black, lw=1, ls=:dot, label="")
-
-	plot(sp, hp, np, p_z1, p_p1, p_p2,
-		layout = FIG_LAYOUT,
-		size = FIG_SIZE, margin=MARGINS)
-end
-
-# ╔═╡ 30000000-0000-0000-0000-000000000002
-begin
-	# Clockwise ellipse centred at -2 + 0i, enclosing both poles and excluding the zero
-	C₂ = [(-2.0 + 0.0im) +
-		  1.5*cos(t) -
-		  im*2.8*sin(t)
-		  for t in θ_vec]
-	H₂ = H.(C₂)
-
-	φz_C2  = unwrap(angle.(C₂ .- z₁))
-	φp1_C2 = unwrap(angle.(C₂ .- p₁))
-	φp2_C2 = unwrap(angle.(C₂ .- p₂))
-	φH_C2  = unwrap(angle.(H₂))
-end;
-
-# ╔═╡ 30000000-0000-0000-0000-000000000004
-let
-	s  = C₂[t₂]
-	h  = H₂[t₂]
-	idx = 1:t₂
-
-	# ── s-plane  (1,1) ───────────────────────────────────────────────────────
-	sp = plot(real.(C₂), imag.(C₂),
-		lc=:royalblue, lw=2, label="Contour C₂",
-		title="s-plane  (step $t₂ / $N_pts)",
 		xlabel="Re(s)", ylabel="Im(s)",
 		xlims=(-5.5, 5.5), ylims=(-3.5, 3.5),
 		framestyle = :origin, legend=:bottomright)
@@ -324,8 +329,8 @@ let
 		ms=10, mc=:darkorange, marker=:star5, label="s(t)")
 
 	# ── H(s)-plane  (1,2) ────────────────────────────────────────────────────
-	hp = plot(real.(H₂), imag.(H₂),
-		lc=:royalblue, lw=2, label="H(C₂)",
+	hp = plot(real.(H₁), imag.(H₁),
+		lc=:royalblue, lw=2, label="H(C₁)",
 		title="H(s)-plane",
 		xlabel="Re(H(s))", ylabel="Im(H(s))",
 		aspect_ratio=:equal, legend=:bottomleft, framestyle=:origin)
@@ -335,9 +340,9 @@ let
 		ms=10, mc=:darkorange, marker=:star5, label="H(s(t))")
 
 	# ── Net angle build-up  (1,3) ─────────────────────────────────────────────
-	Δp1_vals = rad2deg.(φp1_C2[idx] .- φp1_C2[1])
-	Δp2_vals = rad2deg.(φp2_C2[idx] .- φp2_C2[1])
-	ΔH_vals  = rad2deg.(φH_C2[idx]  .- φH_C2[1])
+	Δp1_vals = rad2deg.(φp1_C1[idx] .- φp1_C1[1])
+	Δp2_vals = rad2deg.(φp2_C1[idx] .- φp2_C1[1])
+	ΔH_vals  = rad2deg.(φH_C1[idx]  .- φH_C1[1])
 	np = plot(idx, Δp1_vals,
 		lc=:crimson, lw=2.5, label="Net Δ∠(s − p₁)",
 		title="Net Angle Build-up",
@@ -353,7 +358,7 @@ let
 	hline!(np, [360.0],  lc=:gray,  lw=1, ls=:dot, label="")
 	hline!(np, [720.0],  lc=:gray,  lw=1, ls=:dot, label="")
 
-	if t₂ == N_pts
+	if t₁ == N_pts
 		Δp1 = round(Δp1_vals[end], digits=0)
 		Δp2 = round(Δp2_vals[end], digits=0)
 		ΔH  = round(ΔH_vals[end],  digits=0)
@@ -366,18 +371,18 @@ let
 	end
 
 	# ── Unwrapped angle — z₁  (2,1) ──────────────────────────────────────────
-	p_z1 = plot(idx, rad2deg.(φz_C2[idx]),
+	p_z1 = plot(idx, rad2deg.(φz_C1[idx]),
 		lc=:darkgreen, lw=2, label="∠(s − z₁)",
-		title="∠(s − z₁)  [zero, outside C₂]",
+		title="∠(s − z₁)  [zero, outside C₁]",
 		xlabel="Step", ylabel="Angle (°)",
 		xlim=(-1/2,301), ylim=(100,200)
 		)
 	hline!(p_z1, [0.0], lc=:black, lw=1, ls=:dot, label="")
 
 	# ── Unwrapped angle — p₁  (2,2) ──────────────────────────────────────────
-	p_p1 = plot(idx, rad2deg.(φp1_C2[idx]),
+	p_p1 = plot(idx, rad2deg.(φp1_C1[idx]),
 		lc=:crimson, lw=2, label="∠(s − p₁)",
-		title="∠(s − p₁)  [pole, inside C₂]",
+		title="∠(s − p₁)  [pole, inside C₁]",
 		xlabel="Step", ylabel="Angle (°)",
 		xlim=(-1/2,301),
 		)
@@ -385,9 +390,9 @@ let
 	hline!(p_p1, [-360.0], lc=:gray,  lw=1, ls=:dot, label="")
 
 	# ── Unwrapped angle — p₂  (2,3) ──────────────────────────────────────────
-	p_p2 = plot(idx, rad2deg.(φp2_C2[idx]),
+	p_p2 = plot(idx, rad2deg.(φp2_C1[idx]),
 		lc=:purple, lw=2, label="∠(s − p₂)",
-		title="∠(s − p₂)  [pole, inside C₂]",
+		title="∠(s − p₂)  [pole, inside C₁]",
 		xlabel="Step", ylabel="Angle (°)",
 		xlim=(-1/2,301)
 		)
@@ -401,28 +406,28 @@ end
 # ╔═╡ 40000000-0000-0000-0000-000000000002
 begin
 	# Clockwise circle enclosing z₁ and p₁, while excluding p₂
-	C₃ = [(1.0 + 1.0im) +
+	C₂ = [(1.0 + 1.0im) +
 		  3.4*cos(t) -
 		  im*3.4*sin(t)
 		  for t in θ_vec]
-	H₃ = H.(C₃)
+	H₂ = H.(C₂)
 
-	φz_C3  = unwrap(angle.(C₃ .- z₁))
-	φp1_C3 = unwrap(angle.(C₃ .- p₁))
-	φp2_C3 = unwrap(angle.(C₃ .- p₂))
-	φH_C3  = unwrap(angle.(H₃))
+	φz_C2  = unwrap(angle.(C₂ .- z₁))
+	φp1_C2 = unwrap(angle.(C₂ .- p₁))
+	φp2_C2 = unwrap(angle.(C₂ .- p₂))
+	φH_C2  = unwrap(angle.(H₂))
 end;
 
 # ╔═╡ 40000000-0000-0000-0000-000000000004
 let
-	s  = C₃[t₃]
-	h  = H₃[t₃]
-	idx = 1:t₃
+	s  = C₂[t₂]
+	h  = H₂[t₂]
+	idx = 1:t₂
 
 	# ── s-plane  (1,1) ───────────────────────────────────────────────────────
-	sp = plot(real.(C₃), imag.(C₃),
-		lc=:royalblue, lw=2, label="Contour C₃",
-		title="s-plane  (step $t₃ / $N_pts)",
+	sp = plot(real.(C₂), imag.(C₂),
+		lc=:royalblue, lw=2, label="Contour C₂",
+		title="s-plane  (step $t₂ / $N_pts)",
 		xlabel="Re(s)", ylabel="Im(s)",
 		xlims=(-3.2, 5.0), ylims=(-3.0, 5.0),
 		aspect_ratio=:equal, legend=:topright, framestyle=:origin)
@@ -444,8 +449,8 @@ let
 		ms=10, mc=:darkorange, marker=:star5, label="s(t)")
 
 	# ── H(s)-plane  (1,2) ────────────────────────────────────────────────────
-	hp = plot(real.(H₃), imag.(H₃),
-		lc=:royalblue, lw=2, label="H(C₃)",
+	hp = plot(real.(H₂), imag.(H₂),
+		lc=:royalblue, lw=2, label="H(C₂)",
 		title="H(s)-plane",
 		xlabel="Re(H(s))", ylabel="Im(H(s))",
 		aspect_ratio=:equal, legend=:bottomright, framestyle=:origin)
@@ -455,9 +460,9 @@ let
 		ms=10, mc=:darkorange, marker=:star5, label="H(s(t))")
 
 	# ── Net angle build-up  (1,3) ─────────────────────────────────────────────
-	Δz_vals  = rad2deg.(φz_C3[idx]  .- φz_C3[1])
-	Δp1_vals = rad2deg.(φp1_C3[idx] .- φp1_C3[1])
-	ΔH_vals  = rad2deg.(φH_C3[idx]  .- φH_C3[1])
+	Δz_vals  = rad2deg.(φz_C2[idx]  .- φz_C2[1])
+	Δp1_vals = rad2deg.(φp1_C2[idx] .- φp1_C2[1])
+	ΔH_vals  = rad2deg.(φH_C2[idx]  .- φH_C2[1])
 	np = plot(idx, Δz_vals,
 		lc=:darkgreen, lw=2.5, label="Net Δ∠(s − z₁)",
 		title="Net Angle Build-up",
@@ -470,7 +475,7 @@ let
 		lc=:royalblue, lw=2.5, ls=:dash, label="Net Δ∠H(s)")
 	hline!(np, [0.0], lc=:black, lw=1, ls=:dot, label="")
 
-	if t₃ == N_pts
+	if t₂ == N_pts
 		Δz  = round(Δz_vals[end], digits=0)
 		Δp1 = round(Δp1_vals[end], digits=0)
 		ΔH  = round(ΔH_vals[end], digits=0)
@@ -483,27 +488,27 @@ let
 	end
 
 	# ── Unwrapped angle — z₁  (2,1) ──────────────────────────────────────────
-	p_z1 = plot(idx, rad2deg.(φz_C3[idx]),
+	p_z1 = plot(idx, rad2deg.(φz_C2[idx]),
 		lc=:darkgreen, lw=2, label="∠(s − z₁)",
-		title="∠(s − z₁)  [zero, inside C₃]",
+		title="∠(s − z₁)  [zero, inside C₂]",
 		xlabel="Step", ylabel="Angle (°)",xlim=(-1/2,301),
 
 		)
 	hline!(p_z1, [0.0], lc=:black, lw=1, ls=:dot, label="")
 
 	# ── Unwrapped angle — p₁  (2,2) ──────────────────────────────────────────
-	p_p1 = plot(idx, rad2deg.(φp1_C3[idx]),
+	p_p1 = plot(idx, rad2deg.(φp1_C2[idx]),
 		lc=:crimson, lw=2, label="∠(s − p₁)",
-		title="∠(s − p₁)  [pole, inside C₃]",
+		title="∠(s − p₁)  [pole, inside C₂]",
 		xlabel="Step", ylabel="Angle (°)",xlim=(-1/2,301),
 
 		)
 	hline!(p_p1, [0.0], lc=:black, lw=1, ls=:dot, label="")
 
 	# ── Unwrapped angle — p₂  (2,3) ──────────────────────────────────────────
-	p_p2 = plot(idx, rad2deg.(φp2_C3[idx]),
+	p_p2 = plot(idx, rad2deg.(φp2_C2[idx]),
 		lc=:purple, lw=2, label="∠(s − p₂)",
-		title="∠(s − p₂)  [pole, outside C₃]",
+		title="∠(s − p₂)  [pole, outside C₂]",
 		xlabel="Step", ylabel="Angle (°)",xlim=(-1/2,301),
 		ylim=(50,150)
 		)
@@ -1695,10 +1700,6 @@ version = "1.13.0+0"
 # ╟─10000000-0000-0000-0000-000000000001
 # ╟─10000000-0000-0000-0000-000000000002
 # ╠═10000000-0000-0000-0000-000000000003
-# ╟─20000000-0000-0000-0000-000000000001
-# ╟─20000000-0000-0000-0000-000000000002
-# ╟─20000000-0000-0000-0000-000000000003
-# ╟─20000000-0000-0000-0000-000000000004
 # ╟─30000000-0000-0000-0000-000000000001
 # ╟─30000000-0000-0000-0000-000000000002
 # ╟─30000000-0000-0000-0000-000000000003
@@ -1707,6 +1708,10 @@ version = "1.13.0+0"
 # ╟─40000000-0000-0000-0000-000000000002
 # ╟─40000000-0000-0000-0000-000000000003
 # ╟─40000000-0000-0000-0000-000000000004
+# ╟─50000000-0000-0000-0000-000000000001
+# ╟─50000000-0000-0000-0000-000000000002
+# ╟─50000000-0000-0000-0000-000000000003
+# ╟─50000000-0000-0000-0000-000000000004
 # ╟─10000000-0000-0000-0000-000000000004
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
